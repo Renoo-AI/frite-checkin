@@ -1,0 +1,11 @@
+{
+  "skill_name": "neobrutalism-popart-spa",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a premium fast-casual single-file SPA for POTATO & CO. containing 9 fully responsive views using strict Neobrutalism UI design tokens, including an ultra-bold headline hero, integrated custom order modifiers for Potatoes/Frites/Chips, and an interactive itemized shopping cart state switch logic without placeholders.",
+      "expected_output": "A single standalone HTML file containing no code placeholders, featuring exact 4px solid dark contours, geometric unblurred hard shadows, interactive hover animation states, and a dynamic Vanilla JS tab switcher for all 9 core views.",
+      "files": []
+    }
+  ]
+}
