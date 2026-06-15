@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POTATO & CO. | High-End Fast-Casual Potatoes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FFE600', // Electric Yellow
+            secondary: '#00E5FF', // Neon Cyan
+            accent: '#FF3D00', // Hot Citrus Orange
+            ink: '#1A1A1A',
+            base: '#FAF8F5',
+          },
+          fontFamily: {
+            heading: ['"Archivo Black"', 'sans-serif'],
+            body: ['"Space Grotesk"', 'sans-serif'],
+          },
+          boxShadow: {
+            'pop': '6px 6px 0px 0px #1A1A1A',
+            'pop-lg': '10px 10px 0px 0px #1A1A1A',
+            'pop-sm': '3px 3px 0px 0px #1A1A1A',
+            'pop-active': '2px 2px 0px 0px #1A1A1A',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FAF8F5;
+      background-image: radial-gradient(#1A1A1A 1px, transparent 1px);
+      background-size: 16px 16px;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #1A1A1A;
+    }
+
+
+
+
+
+    /* Moving pop-text infinite ticker banner */
+    .marquee-container {
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+    .marquee-content {
+      display: inline-block;
+      animation: marquee 15s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .hidden-view {
+      display: none !important;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col relative overflow-x-hidden">
+  <nav class="border-4 border-[#1A1A1A] sticky top-0 bg-white z-50 flex flex-wrap justify-between items-center p-4 shadow-[3px_3px_0px_0px_#1A1A1A]">
+    <div class="flex items-center gap-4">
+      <h1 class="font-heading text-2xl md:text-4xl cursor-pointer hover:-translate-y-1 transition-transform" onclick="switchView('landing')">POTATO & CO.</h1>
+      <span class="bg-primary border-4 border-[#1A1A1A] px-2 py-1 font-[900] text-sm hidden md:inline-block shadow-[3px_3px_0px_0px_#1A1A1A] rotate-[-3deg]">PREMIUM FRITES</span>
+    </div>
+    <button class="md:hidden border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-accent text-white px-4 py-2" onclick="toggleMobileMenu()">MENU</button>
+    <div id="nav-links" class="hidden md:flex flex-wrap gap-2 md:gap-4 mt-4 md:mt-0 w-full md:w-auto items-center">
+      <button class="font-[900] hover:-translate-y-1 transition-transform border-b-4 border-transparent hover:border-ink px-2" onclick="switchView('menu')">MENU</button>
+      <button class="font-[900] hover:-translate-y-1 transition-transform border-b-4 border-transparent hover:border-ink px-2" onclick="switchView('builder')">BOX BUILDER</button>
+      <button class="font-[900] hover:-translate-y-1 transition-transform border-b-4 border-transparent hover:border-ink px-2" onclick="switchView('story')">OUR STORY</button>
+      <button class="font-[900] hover:-translate-y-1 transition-transform border-b-4 border-transparent hover:border-ink px-2" onclick="switchView('merch')">MERCH</button>
+      <button class="font-[900] hover:-translate-y-1 transition-transform border-b-4 border-transparent hover:border-ink px-2" onclick="switchView('catering')">CATERING</button>
+      <button class="font-[900] hover:-translate-y-1 transition-transform border-b-4 border-transparent hover:border-ink px-2" onclick="switchView('locations')">LOCATIONS</button>
+      <button class="font-[900] hover:-translate-y-1 transition-transform border-b-4 border-transparent hover:border-ink px-2" onclick="switchView('reviews')">VIP REVIEWS</button>
+      <button class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-secondary px-6 py-2 flex items-center gap-2 text-lg" onclick="switchView('cart')">
+        🛒 CART [<span id="cart-count">0</span>]
+      </button>
+    </div>
+  </nav>
+  <main class="flex-grow pb-24">
+    <section data-view="landing" class="block">
+      <div class="marquee-container border-4 border-[#1A1A1A] bg-accent text-white py-2 font-heading text-xl md:text-2xl tracking-widest shadow-[3px_3px_0px_0px_#1A1A1A]">
+        <div class="marquee-content">
+          Gourmet Crispy Potatoes 🍟 Artisan Frites 🍟 Custom-Flavored Chips 🍟 Luxury Fast-Casual 🍟 High-End Pop 🍟 Gourmet Crispy Potatoes 🍟 Artisan Frites 🍟 Custom-Flavored Chips 🍟 Luxury Fast-Casual 🍟 High-End Pop 🍟
+        </div>
+      </div>
+      <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2">
+          <h2 class="font-heading text-6xl md:text-8xl leading-none tracking-tighter mb-6 uppercase">
+            Not Your <br>
+            <span class="text-white bg-ink px-2 py-1 rotate-[-2deg] inline-block shadow-[10px_10px_0px_0px_#1A1A1A] border-4 border-[#1A1A1A]">Basic</span> <br>
+            Potato.
+          </h2>
+          <p class="text-xl md:text-2xl font-medium mb-8 leading-relaxed max-w-lg bg-white border-4 border-[#1A1A1A] p-4 shadow-[6px_6px_0px_0px_#1A1A1A]">
+            We source the finest artisanal spuds, double-fried in pure wagyu tallow, and dusted with high-voltage flavor. Unapologetically crispy.
+          </p>
+          <div class="flex flex-wrap gap-6">
+            <button class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-primary text-2xl px-10 py-5" onclick="switchView('menu')">ORDER NOW</button>
+            <button class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-white text-xl px-8 py-5" onclick="switchView('story')">OUR MISSION</button>
+          </div>
+        </div>
+        <div class="md:w-1/2 flex justify-center relative">
+          <div class="w-72 h-72 md:w-96 md:h-96 bg-primary rounded-full border-4 border-[#1A1A1A] shadow-[10px_10px_0px_0px_#1A1A1A] flex items-center justify-center absolute top-0 right-0 -z-10 translate-x-10 -translate-y-10"></div>
+          <div class="w-64 h-80 bg-accent border-4 border-[#1A1A1A] shadow-[10px_10px_0px_0px_#1A1A1A] rotate-12 flex flex-col justify-end p-4">
+             <div class="h-4/5 w-full bg-secondary border-4 border-[#1A1A1A] flex justify-center gap-2 p-2">
+               <div class="w-1/5 h-full bg-primary border-4 border-[#1A1A1A] transform -translate-y-12"></div>
+               <div class="w-1/5 h-full bg-primary border-4 border-[#1A1A1A] transform -translate-y-24"></div>
+               <div class="w-1/5 h-full bg-primary border-4 border-[#1A1A1A] transform -translate-y-8"></div>
+               <div class="w-1/5 h-full bg-primary border-4 border-[#1A1A1A] transform -translate-y-16"></div>
+             </div>
+             <h3 class="font-heading text-white text-3xl text-center mt-2">POTATO & CO.</h3>
+          </div>
+        </div>
+      </div>
+      <div class="container mx-auto px-4 py-16">
+         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] p-8 bg-secondary text-center hover:-translate-y-2 transition-transform">
+               <h3 class="font-heading text-4xl mb-4">CRISPY.</h3>
+               <p class="text-lg font-[900]">Double-fried for maximum structural integrity.</p>
+            </div>
+            <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] p-8 bg-primary text-center hover:-translate-y-2 transition-transform">
+               <h3 class="font-heading text-4xl mb-4">BOLD.</h3>
+               <p class="text-lg font-[900]">Seasoned with explosive, custom-crafted spices.</p>
+            </div>
+            <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] p-8 bg-accent text-white text-center hover:-translate-y-2 transition-transform">
+               <h3 class="font-heading text-4xl mb-4">PURE.</h3>
+               <p class="text-lg font-[900]">Sourced strictly from high-altitude heirloom farms.</p>
+            </div>
+         </div>
+      </div>
+    </section>
+    <section data-view="menu" class="hidden-view container mx-auto px-4 py-12">
+      <div class="flex justify-between items-end mb-12 bg-white border-4 border-[#1A1A1A] p-6 shadow-[6px_6px_0px_0px_#1A1A1A]">
+        <h2 class="font-heading text-5xl md:text-7xl uppercase">The Menu</h2>
+        <p class="text-xl font-[900] hidden md:block">High-Contrast Spuds</p>
+      </div>
+      <div class="mb-16">
+        <h3 class="font-heading text-4xl mb-6 inline-block bg-primary border-4 border-[#1A1A1A] px-4 py-2 shadow-[3px_3px_0px_0px_#1A1A1A] rotate-[-1deg]">Artisan Frites</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-frites-container">
+        </div>
+      </div>
+      <div class="mb-16">
+        <h3 class="font-heading text-4xl mb-6 inline-block bg-secondary border-4 border-[#1A1A1A] px-4 py-2 shadow-[3px_3px_0px_0px_#1A1A1A] rotate-[1deg]">Custom Chips</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-chips-container">
+        </div>
+      </div>
+      <div class="mb-16">
+        <h3 class="font-heading text-4xl mb-6 inline-block bg-accent text-white border-4 border-[#1A1A1A] px-4 py-2 shadow-[3px_3px_0px_0px_#1A1A1A] rotate-[-2deg]">Smashed & Roasted</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-roasted-container">
+        </div>
+      </div>
+    </section>
+    <section data-view="story" class="hidden-view container mx-auto px-4 py-12">
+      <h2 class="font-heading text-6xl md:text-8xl text-center mb-16 uppercase bg-white border-4 border-[#1A1A1A] p-4 shadow-[6px_6px_0px_0px_#1A1A1A] inline-block rotate-[1deg]">The Heritage</h2>
+      <div class="max-w-4xl mx-auto relative pl-8 md:pl-0">
+        <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-4 bg-ink border-4 border-[#1A1A1A] transform md:-translate-x-1/2"></div>
+        <div class="relative mb-16 md:w-1/2 md:pr-12 md:ml-0 md:text-right hover:-translate-y-2 transition-transform">
+          <div class="absolute left-[-40px] md:right-[-28px] md:left-auto top-4 w-12 h-12 bg-primary border-4 border-[#1A1A1A] rounded-full shadow-[3px_3px_0px_0px_#1A1A1A] z-10"></div>
+          <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] bg-white p-6 bg-white shadow-[6px_6px_0px_0px_#1A1A1A]">
+            <span class="font-heading text-3xl text-accent block mb-2">PHASE 01: THE SEED</span>
+            <p class="text-lg font-medium">We scoured the high-altitude Andes for the rarest, starch-perfect heirloom potatoes. No generics. Only pure, unadulterated spud DNA.</p>
+          </div>
+        </div>
+        <div class="relative mb-16 md:w-1/2 md:pl-12 md:ml-auto hover:-translate-y-2 transition-transform">
+          <div class="absolute left-[-40px] md:left-[-28px] top-4 w-12 h-12 bg-secondary border-4 border-[#1A1A1A] rounded-full shadow-[3px_3px_0px_0px_#1A1A1A] z-10"></div>
+          <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A]  p-6 bg-primary shadow-[6px_6px_0px_0px_#1A1A1A]">
+            <span class="font-heading text-3xl text-ink block mb-2">PHASE 02: THE DIRT</span>
+            <p class="text-lg font-medium">Planted in mineral-rich volcanic soil and watered by glacial runoff. Our farming partners employ brutalist agriculture—tough love makes for a crispier bite.</p>
+          </div>
+        </div>
+        <div class="relative mb-16 md:w-1/2 md:pr-12 md:ml-0 md:text-right hover:-translate-y-2 transition-transform">
+          <div class="absolute left-[-40px] md:right-[-28px] md:left-auto top-4 w-12 h-12 bg-accent border-4 border-[#1A1A1A] rounded-full shadow-[3px_3px_0px_0px_#1A1A1A] z-10"></div>
+          <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] bg-white p-6 bg-white shadow-[6px_6px_0px_0px_#1A1A1A]">
+            <span class="font-heading text-3xl text-secondary block mb-2">PHASE 03: THE CUT</span>
+            <p class="text-lg font-medium">Precision geometry. Our potatoes are laser-measured and cut into exact structural shapes to maximize surface area for ultimate crunch.</p>
+          </div>
+        </div>
+        <div class="relative mb-16 md:w-1/2 md:pl-12 md:ml-auto hover:-translate-y-2 transition-transform">
+          <div class="absolute left-[-40px] md:left-[-28px] top-4 w-12 h-12 bg-white border-4 border-[#1A1A1A] rounded-full shadow-[3px_3px_0px_0px_#1A1A1A] z-10"></div>
+          <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A]  p-6 bg-accent text-white shadow-[6px_6px_0px_0px_#1A1A1A]">
+            <span class="font-heading text-3xl text-primary block mb-2">PHASE 04: THE FRY</span>
+            <p class="text-lg font-medium">Double-fried in pure Wagyu tallow at exactly 375°F. Flash-dusted with high-voltage spice blends while still screaming hot.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section data-view="builder" class="hidden-view container mx-auto px-4 py-12">
+      <div class="bg-primary border-4 border-[#1A1A1A] p-8 mb-12 shadow-[6px_6px_0px_0px_#1A1A1A] flex flex-col md:flex-row justify-between items-center">
+        <div>
+          <h2 class="font-heading text-6xl uppercase mb-2">Build The Box</h2>
+          <p class="text-2xl font-[900]">Configure your ultimate potato experience.</p>
+        </div>
+        <div class="text-right mt-6 md:mt-0">
+          <p class="text-4xl font-heading bg-white border-4 border-[#1A1A1A] px-4 py-2 inline-block shadow-[3px_3px_0px_0px_#1A1A1A]" id="builder-price">$14.00</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] bg-white p-6 flex flex-col">
+          <div class="bg-ink text-white font-heading text-2xl py-2 px-4 border-4 border-[#1A1A1A] mb-6 inline-block rotate-[-2deg]">STEP 01: CUT</div>
+          <div class="flex-grow flex flex-col gap-4" id="builder-cuts">
+            <label class="border-4 border-[#1A1A1A] p-4 flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition-colors builder-option-label">
+              <input type="radio" name="builder-cut" value="Shoestring" class="w-6 h-6 accent-ink" checked onchange="updateBuilder()">
+              <span class="text-xl font-[900] font-heading">Shoestring</span>
+            </label>
+            <label class="border-4 border-[#1A1A1A] p-4 flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition-colors builder-option-label">
+              <input type="radio" name="builder-cut" value="Thick Wedge" class="w-6 h-6 accent-ink" onchange="updateBuilder()">
+              <span class="text-xl font-[900] font-heading">Thick Wedge</span>
+            </label>
+            <label class="border-4 border-[#1A1A1A] p-4 flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition-colors builder-option-label">
+              <input type="radio" name="builder-cut" value="Crinkle" class="w-6 h-6 accent-ink" onchange="updateBuilder()">
+              <span class="text-xl font-[900] font-heading">Crinkle Max</span>
+            </label>
+            <label class="border-4 border-[#1A1A1A] p-4 flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition-colors builder-option-label">
+              <input type="radio" name="builder-cut" value="Waffle" class="w-6 h-6 accent-ink" onchange="updateBuilder()">
+              <span class="text-xl font-[900] font-heading">Grid Waffle</span>
+            </label>
+          </div>
+        </div>
+        <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A]  p-6 flex flex-col bg-secondary">
+          <div class="bg-white text-ink font-heading text-2xl py-2 px-4 border-4 border-[#1A1A1A] mb-6 inline-block rotate-[1deg]">STEP 02: DUST</div>
+          <div class="flex-grow flex flex-col gap-4" id="builder-seasonings">
+            <label class="border-4 border-[#1A1A1A] p-4 bg-white flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition-colors builder-option-label">
+              <input type="radio" name="builder-seasoning" value="Classic Sea Salt" class="w-6 h-6 accent-ink" checked onchange="updateBuilder()">
+              <span class="text-xl font-[900] font-heading">Maldon Sea Salt</span>
+            </label>
+            <label class="border-4 border-[#1A1A1A] p-4 bg-white flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition-colors builder-option-label">
+              <input type="radio" name="builder-seasoning" value="Truffle Parm" class="w-6 h-6 accent-ink" onchange="updateBuilder()">
+              <span class="text-xl font-[900] font-heading">Truffle & Parm</span>
+            </label>
+            <label class="border-4 border-[#1A1A1A] p-4 bg-white flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition-colors builder-option-label">
+              <input type="radio" name="builder-seasoning" value="Ghost Pepper" class="w-6 h-6 accent-ink" onchange="updateBuilder()">
+              <span class="text-xl font-[900] font-heading">Ghost Pepper Neon</span>
+            </label>
+            <label class="border-4 border-[#1A1A1A] p-4 bg-white flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition-colors builder-option-label">
+              <input type="radio" name="builder-seasoning" value="Garlic Herb" class="w-6 h-6 accent-ink" onchange="updateBuilder()">
+              <span class="text-xl font-[900] font-heading">Roasted Garlic Herb</span>
+            </label>
+          </div>
+        </div>
+        <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] bg-white p-6 flex flex-col">
+          <div class="bg-accent text-white font-heading text-2xl py-2 px-4 border-4 border-[#1A1A1A] mb-6 inline-block rotate-[-1deg]">STEP 03: DIP</div>
+          <div class="flex-grow flex flex-col gap-4" id="builder-dips">
+            <label class="border-4 border-[#1A1A1A] p-4 flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition-colors builder-option-label">
+              <input type="checkbox" name="builder-dip" value="House Aioli" class="w-6 h-6 accent-ink" onchange="updateBuilder()">
+              <span class="text-xl font-[900] font-heading">Black Garlic Aioli (+$2)</span>
+            </label>
+            <label class="border-4 border-[#1A1A1A] p-4 flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition-colors builder-option-label">
+              <input type="checkbox" name="builder-dip" value="Spicy Ketchup" class="w-6 h-6 accent-ink" onchange="updateBuilder()">
+              <span class="text-xl font-[900] font-heading">Habanero Ketchup (+$1)</span>
+            </label>
+            <label class="border-4 border-[#1A1A1A] p-4 flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition-colors builder-option-label">
+              <input type="checkbox" name="builder-dip" value="Liquid Gold" class="w-6 h-6 accent-ink" onchange="updateBuilder()">
+              <span class="text-xl font-[900] font-heading">Liquid Gold Cheese (+$3)</span>
+            </label>
+            <label class="border-4 border-[#1A1A1A] p-4 flex items-center gap-4 cursor-pointer hover:bg-gray-100 transition-colors builder-option-label">
+              <input type="checkbox" name="builder-dip" value="Ranch" class="w-6 h-6 accent-ink" onchange="updateBuilder()">
+              <span class="text-xl font-[900] font-heading">Peppercorn Ranch (+$1)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="mt-12 text-center">
+        <button class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-ink text-white text-3xl px-16 py-6" onclick="addBuilderToCart()">ADD BOX TO CART</button>
+      </div>
+    </section>
+    <section data-view="merch" class="hidden-view container mx-auto px-4 py-12">
+      <div class="bg-ink text-white border-4 border-[#1A1A1A] p-8 mb-12 shadow-[6px_6px_0px_0px_#1A1A1A] text-center relative overflow-hidden">
+        <h2 class="font-heading text-6xl md:text-8xl uppercase relative z-10">The Merch</h2>
+        <p class="text-2xl font-[900] text-primary relative z-10">Rep the potato.</p>
+        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+          <span class="font-heading text-[150px] leading-none whitespace-nowrap">SWAG SWAG SWAG</span>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="merch-container">
+      </div>
+    </section>
+    <section data-view="catering" class="hidden-view container mx-auto px-4 py-12">
+      <div class="flex flex-col md:flex-row gap-12">
+        <div class="md:w-1/2">
+          <h2 class="font-heading text-6xl uppercase bg-primary inline-block p-4 border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] mb-8 rotate-[-2deg]">Catering</h2>
+          <p class="text-2xl font-[900] mb-6 bg-white border-4 border-[#1A1A1A] p-4 shadow-[3px_3px_0px_0px_#1A1A1A] inline-block">Bring the fryers to your function.</p>
+          <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A]  p-6 mb-8 bg-secondary">
+            <h3 class="font-heading text-3xl mb-4 text-ink">THE MOBILE FRY STATION</h3>
+            <p class="text-lg font-[900] mb-4">We roll up with our custom-built brutalist fry cart. Hot, fresh, made-to-order frites for your guests.</p>
+            <ul class="list-disc pl-6 text-lg font-medium space-y-2 font-[900]">
+              <li>Weddings (Late Night Snack)</li>
+              <li>Corporate Activations</li>
+              <li>Private Raves</li>
+              <li>Minimum 50 guests.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="md:w-1/2">
+          <form class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] bg-white p-8 bg-white flex flex-col gap-6" onsubmit="event.preventDefault(); alert('Request submitted! Our team will contact you in 24 hours.'); this.reset();">
+            <h3 class="font-heading text-3xl mb-4">BOOK THE TRUCK</h3>
+            <div class="flex flex-col gap-2">
+              <label class="font-[900] text-lg uppercase">Event Name / Company</label>
+              <input type="text" required class="border-4 border-[#1A1A1A] p-3 text-lg font-[900] bg-[#FAF8F5] focus:outline-none focus:bg-primary transition-colors" placeholder="e.g., Tech Corp Summer Party">
+            </div>
+            <div class="flex flex-col md:flex-row gap-6">
+              <div class="flex flex-col gap-2 w-full md:w-1/2">
+                <label class="font-[900] text-lg uppercase">Date</label>
+                <input type="date" required class="border-4 border-[#1A1A1A] p-3 text-lg font-[900] bg-[#FAF8F5] focus:outline-none focus:bg-primary transition-colors">
+              </div>
+              <div class="flex flex-col gap-2 w-full md:w-1/2">
+                <label class="font-[900] text-lg uppercase">Guest Count</label>
+                <input type="number" min="50" required class="border-4 border-[#1A1A1A] p-3 text-lg font-[900] bg-[#FAF8F5] focus:outline-none focus:bg-primary transition-colors" placeholder="Min 50">
+              </div>
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="font-[900] text-lg uppercase">Email Address</label>
+              <input type="email" required class="border-4 border-[#1A1A1A] p-3 text-lg font-[900] bg-[#FAF8F5] focus:outline-none focus:bg-primary transition-colors" placeholder="you@company.com">
+            </div>
+            <div class="flex flex-col gap-2">
+              <label class="font-[900] text-lg uppercase">Details</label>
+              <textarea required class="border-4 border-[#1A1A1A] p-3 text-lg font-[900] bg-[#FAF8F5] focus:outline-none focus:bg-primary transition-colors h-32 resize-none" placeholder="Tell us about the vibe..."></textarea>
+            </div>
+            <button type="submit" class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-accent text-white text-2xl py-4 mt-4">SUBMIT INQUIRY</button>
+          </form>
+        </div>
+      </div>
+    </section>
+    <section data-view="locations" class="hidden-view container mx-auto px-4 py-12">
+      <h2 class="font-heading text-6xl md:text-8xl text-center mb-16 uppercase bg-white border-4 border-[#1A1A1A] p-4 shadow-[6px_6px_0px_0px_#1A1A1A] inline-block rotate-[1deg]">Find Us</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] bg-white p-6 flex flex-col h-full bg-white relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-primary border-4 border-[#1A1A1A] rounded-full transform translate-x-16 -translate-y-16"></div>
+          <h3 class="font-heading text-4xl mb-2 relative z-10">FLAGSHIP</h3>
+          <p class="text-xl font-[900] text-accent mb-6 relative z-10">Downtown Core</p>
+          <div class="flex-grow">
+            <p class="text-lg font-[900] mb-2">124 Brutalist Blvd.</p>
+            <p class="text-lg mb-6">Sector 7, Metro City</p>
+            <h4 class="font-heading text-xl mb-2">HOURS</h4>
+            <ul class="font-[900] space-y-1">
+              <li>Mon-Wed: 11AM - 10PM</li>
+              <li>Thu-Sat: 11AM - 2AM</li>
+              <li>Sun: Recovery (Closed)</li>
+            </ul>
+          </div>
+          <button class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-ink text-white py-3 mt-8 w-full">GET DIRECTIONS</button>
+        </div>
+        <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A]  p-6 flex flex-col h-full bg-secondary relative overflow-hidden">
+           <div class="absolute top-0 right-0 w-32 h-32 bg-white border-4 border-[#1A1A1A] rounded-full transform translate-x-16 -translate-y-16"></div>
+          <h3 class="font-heading text-4xl mb-2 relative z-10">THE LAB</h3>
+          <p class="text-xl font-[900] text-ink mb-6 relative z-10">Industrial District</p>
+          <div class="flex-grow">
+            <p class="text-lg font-[900] mb-2">99 Warehouse Row.</p>
+            <p class="text-lg mb-6">Zone C, Metro City</p>
+            <h4 class="font-heading text-xl mb-2">HOURS</h4>
+            <ul class="font-[900] space-y-1">
+              <li>Mon-Fri: 11AM - 8PM</li>
+              <li>Sat-Sun: 12PM - 8PM</li>
+            </ul>
+            <p class="mt-4 font-[900] bg-white border-4 border-[#1A1A1A] p-2 inline-block text-sm rotate-[-2deg]">Test Kitchen Exclusives Here</p>
+          </div>
+          <button class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-white text-ink py-3 mt-8 w-full">GET DIRECTIONS</button>
+        </div>
+        <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A]  p-6 flex flex-col h-full bg-primary relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-accent border-4 border-[#1A1A1A] rounded-full transform translate-x-16 -translate-y-16"></div>
+          <h3 class="font-heading text-4xl mb-2 relative z-10">THE RIG</h3>
+          <p class="text-xl font-[900] text-ink mb-6 relative z-10">Mobile Unit 01</p>
+          <div class="flex-grow bg-white border-4 border-[#1A1A1A] p-4 shadow-[3px_3px_0px_0px_#1A1A1A]">
+            <h4 class="font-heading text-2xl mb-2 text-accent blink-text">LIVE STATUS: DEPLOYED</h4>
+            <p class="text-lg font-[900] mb-2">Current Location:</p>
+            <p class="text-xl font-heading mb-4 bg-ink text-white p-2">NEON PARK FESTIVAL</p>
+            <p class="font-[900]">Until 11:00 PM</p>
+          </div>
+          <button class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-accent text-white py-3 mt-8 w-full">PING LOCATION</button>
+        </div>
+      </div>
+    </section>
+    <section data-view="reviews" class="hidden-view container mx-auto px-4 py-12">
+      <h2 class="font-heading text-6xl md:text-8xl text-center mb-16 uppercase bg-ink text-white border-4 border-[#1A1A1A] p-4 shadow-[6px_6px_0px_0px_#1A1A1A] inline-block rotate-[-1deg]">The Verdict</h2>
+      <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+        <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] bg-white p-6 bg-white break-inside-avoid relative hover:-translate-y-2 transition-transform">
+          <div class="absolute -top-4 -left-4 w-12 h-12 bg-primary border-4 border-[#1A1A1A] rounded-full flex items-center justify-center font-heading text-xl shadow-[3px_3px_0px_0px_#1A1A1A]">5★</div>
+          <p class="text-2xl font-[900] mb-4 mt-4 uppercase leading-tight">"Ruined all other fries for me."</p>
+          <p class="text-lg mb-6">The structural integrity of the crinkle cut combined with the truffle dust is an architectural marvel. I will never eat a generic fry again.</p>
+          <div class="flex items-center gap-4 border-t-4 border-ink pt-4">
+            <div class="w-12 h-12 bg-accent border-4 border-[#1A1A1A] overflow-hidden">
+               <svg viewBox="0 0 100 100" class="w-full h-full fill-white"><circle cx="50" cy="50" r="40"/><circle cx="35" cy="40" r="5" fill="#1A1A1A"/><circle cx="65" cy="40" r="5" fill="#1A1A1A"/><path d="M 30 70 Q 50 80 70 70" stroke="#1A1A1A" stroke-width="5" fill="none"/></svg>
+            </div>
+            <div>
+              <p class="font-heading text-lg">SARAH T.</p>
+              <p class="font-[900] text-sm bg-primary px-1 border-2 border-ink inline-block">LEVEL 4 SPUD-HEAD</p>
+            </div>
+          </div>
+        </div>
+        <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A]  p-6 bg-secondary break-inside-avoid relative hover:-translate-y-2 transition-transform">
+          <div class="absolute -top-4 -right-4 w-12 h-12 bg-white border-4 border-[#1A1A1A] rounded-full flex items-center justify-center font-heading text-xl shadow-[3px_3px_0px_0px_#1A1A1A]">5★</div>
+          <p class="text-3xl font-heading mb-4 mt-2 leading-none uppercase">LITERALLY INCREDIBLE.</p>
+          <p class="text-xl font-[900] mb-6">The ghost pepper dust blew my face off in the best way possible. The liquid gold cheese is essential.</p>
+          <div class="flex items-center gap-4 border-t-4 border-ink pt-4">
+            <div class="w-12 h-12 bg-primary border-4 border-[#1A1A1A] overflow-hidden">
+               <svg viewBox="0 0 100 100" class="w-full h-full fill-white"><circle cx="50" cy="50" r="40"/><rect x="25" y="35" width="20" height="10" fill="#1A1A1A"/><rect x="55" y="35" width="20" height="10" fill="#1A1A1A"/><rect x="35" y="65" width="30" height="10" fill="#1A1A1A"/></svg>
+            </div>
+            <div>
+              <p class="font-heading text-lg">MARCUS R.</p>
+              <p class="font-[900] text-sm bg-white px-1 border-2 border-ink inline-block">SPICE MASOCHIST</p>
+            </div>
+          </div>
+        </div>
+        <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] bg-white p-6 bg-white break-inside-avoid relative hover:-translate-y-2 transition-transform">
+          <div class="absolute -bottom-4 -right-4 w-12 h-12 bg-accent text-white border-4 border-[#1A1A1A] rounded-full flex items-center justify-center font-heading text-xl shadow-[3px_3px_0px_0px_#1A1A1A]">5★</div>
+          <p class="text-2xl font-[900] mb-4 uppercase leading-tight">"A masterclass in texture."</p>
+          <p class="text-lg mb-6">I ordered catering for my agency. People stopped networking and just ate frites in silence. It was beautiful.</p>
+          <div class="flex items-center gap-4 border-t-4 border-ink pt-4">
+            <div class="w-12 h-12 bg-secondary border-4 border-[#1A1A1A] overflow-hidden">
+               <svg viewBox="0 0 100 100" class="w-full h-full fill-white"><circle cx="50" cy="50" r="40"/><polygon points="35,35 45,45 25,45" fill="#1A1A1A"/><polygon points="65,35 75,45 55,45" fill="#1A1A1A"/><line x1="30" y1="70" x2="70" y2="70" stroke="#1A1A1A" stroke-width="5"/></svg>
+            </div>
+            <div>
+              <p class="font-heading text-lg">ELENA V.</p>
+              <p class="font-[900] text-sm bg-accent text-white px-1 border-2 border-ink inline-block">ART DIRECTOR</p>
+            </div>
+          </div>
+        </div>
+        <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A]  p-6 bg-primary break-inside-avoid relative hover:-translate-y-2 transition-transform">
+          <div class="absolute -top-4 -left-4 w-12 h-12 bg-white border-4 border-[#1A1A1A] rounded-full flex items-center justify-center font-heading text-xl shadow-[3px_3px_0px_0px_#1A1A1A]">4.9★</div>
+          <p class="text-4xl font-heading mb-4 mt-4 uppercase leading-tight tracking-tighter">CRUNCH LOUD.</p>
+          <p class="text-lg font-[900] mb-6">They are so crispy you can't hear your own thoughts while chewing. 10/10.</p>
+          <div class="flex items-center gap-4 border-t-4 border-ink pt-4">
+            <div class="w-12 h-12 bg-ink border-4 border-[#1A1A1A] overflow-hidden">
+               <svg viewBox="0 0 100 100" class="w-full h-full fill-white"><circle cx="50" cy="50" r="40"/><circle cx="35" cy="40" r="8" fill="#FFE600"/><circle cx="65" cy="40" r="8" fill="#FFE600"/><path d="M 20 60 Q 50 90 80 60" stroke="#FFE600" stroke-width="8" fill="none"/></svg>
+            </div>
+            <div>
+              <p class="font-heading text-lg">DAVID K.</p>
+              <p class="font-[900] text-sm bg-white px-1 border-2 border-ink inline-block">AUDIO ENGINEER</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section data-view="cart" class="hidden-view container mx-auto px-4 py-12">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="font-heading text-6xl md:text-8xl uppercase mb-8 bg-ink text-white border-4 border-[#1A1A1A] p-4 shadow-[6px_6px_0px_0px_#1A1A1A] inline-block rotate-[-1deg]">Your Haul</h2>
+        <div class="flex flex-col lg:flex-row gap-8">
+          <div class="w-full lg:w-2/3">
+            <div id="cart-empty-state" class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] bg-white p-12 text-center bg-white mb-6">
+              <h3 class="font-heading text-4xl mb-4">CART IS EMPTY</h3>
+              <p class="text-xl font-[900] mb-8">Your structural integrity is lacking. Add some spuds.</p>
+              <button class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-primary text-2xl px-8 py-4" onclick="switchView('menu')">GO TO MENU</button>
+            </div>
+            <div id="cart-items-container" class="flex flex-col gap-4 hidden">
+            </div>
+          </div>
+          <div class="w-full lg:w-1/3">
+            <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] bg-white p-6 bg-white sticky top-24">
+              <h3 class="font-heading text-3xl mb-6 border-b-4 border-ink pb-4">SUMMARY</h3>
+              <div class="flex justify-between items-center mb-4 font-[900] text-lg">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">$0.00</span>
+              </div>
+              <div class="flex justify-between items-center mb-4 font-[900] text-lg">
+                <span>Tax (8%)</span>
+                <span id="cart-tax">$0.00</span>
+              </div>
+              <div class="flex justify-between items-center mt-6 mb-8 font-heading text-3xl border-t-4 border-ink pt-4 bg-primary p-2 border-4 border-[#1A1A1A] rotate-[-1deg]">
+                <span>TOTAL</span>
+                <span id="cart-total">$0.00</span>
+              </div>
+              <button id="checkout-btn" class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-accent text-white text-3xl py-6 w-full opacity-50 cursor-not-allowed" disabled onclick="alert('Proceeding to brutal checkout. Secure your spuds.');">CHECKOUT</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="bg-ink text-white border-t-8 border-[#1A1A1A] py-12 relative z-10">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div>
+        <h2 class="font-heading text-4xl mb-2">POTATO & CO.</h2>
+        <p class="font-[900] text-primary">Unapologetically Crispy. Since 2024.</p>
+      </div>
+      <div class="flex gap-4">
+        <div class="w-12 h-12 bg-white border-4 border-[#1A1A1A] flex items-center justify-center cursor-pointer hover:-translate-y-1 transition-transform">
+          <span class="font-heading text-ink text-xl">IG</span>
+        </div>
+        <div class="w-12 h-12 bg-primary border-4 border-[#1A1A1A] flex items-center justify-center cursor-pointer hover:-translate-y-1 transition-transform">
+          <span class="font-heading text-ink text-xl">X</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // --- Application State ---
+    const state = {
+      currentView: 'landing',
+      cart: [],
+      menu: {
+        frites: [
+          { id: 'f1', name: 'The Standard', desc: 'Shoestring cut, Maldon sea salt.', price: 6.00, bgColor: 'bg-white' },
+          { id: 'f2', name: 'Truffle Heavy', desc: 'Thick cut, white truffle oil, parmesan dust.', price: 9.50, bgColor: 'bg-[#FAF8F5]' },
+          { id: 'f3', name: 'Nuclear Neon', desc: 'Crinkle cut, ghost pepper & citrus dust.', price: 8.00, bgColor: 'bg-primary' },
+        ],
+        chips: [
+          { id: 'c1', name: 'Kettle Crunch', desc: 'Thick kettle chips, malt vinegar powder.', price: 5.50, bgColor: 'bg-white' },
+          { id: 'c2', name: 'BBQ Brutal', desc: 'Smoked paprika, molasses, brown sugar.', price: 6.00, bgColor: 'bg-[#FAF8F5]' },
+          { id: 'c3', name: 'Sour Cream Pop', desc: 'Cultured cream, double chive dust.', price: 6.50, bgColor: 'bg-secondary' },
+        ],
+        roasted: [
+          { id: 'r1', name: 'Smashed Garlic', desc: 'Boiled, smashed, roasted in tallow, confit garlic.', price: 10.00, bgColor: 'bg-white' },
+          { id: 'r2', name: 'Loaded Gold', desc: 'Roasted wedges smothered in liquid gold cheese.', price: 12.00, bgColor: 'bg-[#FAF8F5]' },
+        ],
+        merch: [
+          { id: 'm1', name: 'Heavy Cotton Tee', desc: '100% Cotton. "CRUNCH LOUD" back print.', price: 35.00, color: 'bg-ink text-white' },
+          { id: 'm2', name: 'Tallow Candle', desc: 'Smells like heaven (wagyu tallow & salt).', price: 24.00, color: 'bg-white' },
+          { id: 'm3', name: 'Ghost Pepper Dust', desc: '2oz jar of our nuclear seasoning.', price: 12.00, color: 'bg-primary' },
+          { id: 'm4', name: 'Brutalist Tote', desc: 'Carry your potatoes in style.', price: 20.00, color: 'bg-accent text-white' },
+        ]
+      }
+    };
+    // --- Navigation Logic ---
+    function switchView(viewId) {
+      document.querySelectorAll('section[data-view]').forEach(el => {
+        el.classList.add('hidden-view');
+      });
+      document.querySelector(`section[data-view="${viewId}"]`).classList.remove('hidden-view');
+      state.currentView = viewId;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Close mobile menu if open
+      const navLinks = document.getElementById('nav-links');
+      if (navLinks.classList.contains('flex') && window.innerWidth < 768) {
+        navLinks.classList.add('hidden');
+        navLinks.classList.remove('flex', 'flex-col', 'absolute', 'top-full', 'left-0', 'bg-white', 'border-4 border-[#1A1A1A]', 'p-4');
+      }
+      if(viewId === 'cart') renderCart();
+    }
+    function toggleMobileMenu() {
+      const navLinks = document.getElementById('nav-links');
+      if (navLinks.classList.contains('hidden')) {
+        navLinks.classList.remove('hidden');
+        navLinks.classList.add('flex', 'flex-col', 'absolute', 'top-full', 'left-0', 'bg-white', 'border-4 border-[#1A1A1A]', 'p-4', 'shadow-[6px_6px_0px_0px_#1A1A1A]');
+      } else {
+        navLinks.classList.add('hidden');
+        navLinks.classList.remove('flex', 'flex-col', 'absolute', 'top-full', 'left-0', 'bg-white', 'border-4 border-[#1A1A1A]', 'p-4', 'shadow-[6px_6px_0px_0px_#1A1A1A]');
+      }
+    }
+    // --- Data Rendering ---
+    function createItemCard(item) {
+      return `
+        <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] bg-white p-6 flex flex-col justify-between h-full ${item.bgColor || 'bg-white'} hover:-translate-y-2 transition-transform">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <h4 class="font-heading text-3xl uppercase leading-none pr-4 w-3/4">${item.name}</h4>
+              <span class="font-heading text-xl bg-white border-4 border-[#1A1A1A] px-2 py-1 shadow-[3px_3px_0px_0px_#1A1A1A]">$${item.price.toFixed(2)}</span>
+            </div>
+            <p class="text-lg font-[900] mb-6">${item.desc}</p>
+          </div>
+          <button class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-ink text-white py-3 mt-4 w-full text-xl" onclick="addToCart('${item.id}', '${item.name}', ${item.price})">ADD TO HAUL</button>
+        </div>
+      `;
+    }
+    function createMerchCard(item) {
+      return `
+        <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] bg-white p-6 flex flex-col justify-between h-full ${item.color} hover:-translate-y-2 transition-transform relative">
+          <div class="w-full h-48 bg-[#FAF8F5] border-4 border-[#1A1A1A] mb-4 flex items-center justify-center">
+            <span class="font-heading text-4xl text-ink opacity-20">MERCH</span>
+          </div>
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <h4 class="font-heading text-2xl uppercase leading-none">${item.name}</h4>
+            </div>
+            <p class="text-md font-[900] mb-4 opacity-90">${item.desc}</p>
+          </div>
+          <div class="flex justify-between items-center mt-auto">
+            <span class="font-heading text-2xl">$${item.price.toFixed(2)}</span>
+            <button class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-white text-ink px-4 py-2" onclick="addToCart('${item.id}', '${item.name}', ${item.price})">ADD</button>
+          </div>
+        </div>
+      `;
+    }
+    function renderMenu() {
+      document.getElementById('menu-frites-container').innerHTML = state.menu.frites.map(createItemCard).join('');
+      document.getElementById('menu-chips-container').innerHTML = state.menu.chips.map(createItemCard).join('');
+      document.getElementById('menu-roasted-container').innerHTML = state.menu.roasted.map(createItemCard).join('');
+      document.getElementById('merch-container').innerHTML = state.menu.merch.map(createMerchCard).join('');
+    }
+    // --- Builder Logic ---
+    let builderCurrentPrice = 14.00;
+    const builderBasePrice = 14.00;
+    function updateBuilder() {
+      let price = builderBasePrice;
+      const dips = document.querySelectorAll('input[name="builder-dip"]:checked');
+      dips.forEach(dip => {
+        if(dip.value === 'House Aioli') price += 2;
+        if(dip.value === 'Spicy Ketchup') price += 1;
+        if(dip.value === 'Liquid Gold') price += 3;
+        if(dip.value === 'Ranch') price += 1;
+      });
+      builderCurrentPrice = price;
+      document.getElementById('builder-price').innerText = `$${price.toFixed(2)}`;
+      // Update visual styles for selected labels
+      document.querySelectorAll('.builder-option-label').forEach(label => {
+        const input = label.querySelector('input');
+        if(input.checked) {
+          label.classList.add('bg-primary');
+          label.classList.remove('bg-white');
+        } else {
+          label.classList.remove('bg-primary');
+          if(label.closest('#builder-seasonings')) {
+             label.classList.add('bg-white');
+          }
+        }
+      });
+    }
+    function addBuilderToCart() {
+      const cut = document.querySelector('input[name="builder-cut"]:checked').value;
+      const seasoning = document.querySelector('input[name="builder-seasoning"]:checked').value;
+      const dips = Array.from(document.querySelectorAll('input[name="builder-dip"]:checked')).map(cb => cb.value);
+      let desc = `${cut} | ${seasoning}`;
+      if (dips.length > 0) desc += ` | Dips: ${dips.join(', ')}`;
+      addToCart(`box-${Date.now()}`, 'CUSTOM SPUD BOX', builderCurrentPrice, desc);
+      // Reset builder UI visual feedback
+      const btn = document.querySelector('#builder-price');
+      btn.classList.add('bg-secondary');
+      setTimeout(() => btn.classList.remove('bg-secondary'), 300);
+    }
+    // --- Cart Logic ---
+    function addToCart(id, name, price, desc = '') {
+      const existingItem = state.cart.find(item => item.id === id);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        state.cart.push({ id, name, price, desc, quantity: 1 });
+      }
+      updateCartUI();
+      // Visual feedback on nav cart button
+      const cartBtn = document.querySelector('button[onclick="switchView(\'cart\')"]');
+      cartBtn.classList.add('bg-primary');
+      cartBtn.classList.remove('bg-secondary');
+      setTimeout(() => {
+        cartBtn.classList.remove('bg-primary');
+        cartBtn.classList.add('bg-secondary');
+      }, 300);
+    }
+    function removeFromCart(id) {
+      state.cart = state.cart.filter(item => item.id !== id);
+      updateCartUI();
+      if(state.currentView === 'cart') renderCart();
+    }
+    function changeQuantity(id, delta) {
+      const item = state.cart.find(item => item.id === id);
+      if (item) {
+        item.quantity += delta;
+        if (item.quantity <= 0) {
+          removeFromCart(id);
+        } else {
+          updateCartUI();
+          if(state.currentView === 'cart') renderCart();
+        }
+      }
+    }
+    function updateCartUI() {
+      const count = state.cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById('cart-count').innerText = count;
+    }
+    function renderCart() {
+      const emptyState = document.getElementById('cart-empty-state');
+      const itemsContainer = document.getElementById('cart-items-container');
+      const checkoutBtn = document.getElementById('checkout-btn');
+      if (state.cart.length === 0) {
+        emptyState.classList.remove('hidden');
+        itemsContainer.classList.add('hidden');
+        checkoutBtn.disabled = true;
+        checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        document.getElementById('cart-subtotal').innerText = '$0.00';
+        document.getElementById('cart-tax').innerText = '$0.00';
+        document.getElementById('cart-total').innerText = '$0.00';
+        return;
+      }
+      emptyState.classList.add('hidden');
+      itemsContainer.classList.remove('hidden');
+      checkoutBtn.disabled = false;
+      checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      let subtotal = 0;
+      itemsContainer.innerHTML = state.cart.map(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        return `
+          <div class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] bg-white p-4 bg-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="flex-grow">
+              <h4 class="font-heading text-2xl uppercase">${item.name}</h4>
+              ${item.desc ? `<p class="text-sm font-[900] opacity-75 mt-1">${item.desc}</p>` : ''}
+              <p class="font-[900] text-lg mt-2">$${item.price.toFixed(2)} ea</p>
+            </div>
+            <div class="flex items-center gap-4 bg-[#FAF8F5] border-4 border-[#1A1A1A] p-2">
+              <button class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-white w-8 h-8 flex items-center justify-center font-heading text-xl" onclick="changeQuantity('${item.id}', -1)">-</button>
+              <span class="font-heading text-2xl w-8 text-center">${item.quantity}</span>
+              <button class="border-4 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-150 ease-in-out font-[900] uppercase cursor-pointer hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[2px_2px_0px_0px_#1A1A1A] bg-white w-8 h-8 flex items-center justify-center font-heading text-xl" onclick="changeQuantity('${item.id}', 1)">+</button>
+            </div>
+            <div class="w-full md:w-auto flex justify-between md:flex-col items-center md:items-end gap-4 mt-4 md:mt-0 border-t-4 border-ink pt-4 md:border-0 md:pt-0">
+              <span class="font-heading text-3xl">$${itemTotal.toFixed(2)}</span>
+              <button class="font-[900] text-accent underline hover:text-ink" onclick="removeFromCart('${item.id}')">REMOVE</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      const tax = subtotal * 0.08;
+      const total = subtotal + tax;
+      document.getElementById('cart-subtotal').innerText = `$${subtotal.toFixed(2)}`;
+      document.getElementById('cart-tax').innerText = `$${tax.toFixed(2)}`;
+      document.getElementById('cart-total').innerText = `$${total.toFixed(2)}`;
+    }
+    // --- Initialization ---
+    document.addEventListener('DOMContentLoaded', () => {
+      renderMenu();
+      updateBuilder(); // initialize builder UI
+    });
+  </script>
+</body>
+</html>
